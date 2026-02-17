@@ -1,7 +1,5 @@
 name: AP8220
 
-runs-on: self-hosted
-
 on:
   workflow_dispatch:
     inputs:
