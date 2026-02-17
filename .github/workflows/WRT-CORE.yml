@@ -216,7 +216,12 @@ jobs:
 
             if [[ "$WRT_CONFIG" == "IPQ807X-AP8220" ]]; then
               KMOD_ARCHIVE="kmods-$WRT_TARGET-$WRT_INFO-$WRT_BRANCH-$WRT_DATE.tar.gz"
-              find ./bin/targets/ -type f -name 'kmod-*.ipk' -print0 | tar --null -czf "./upload/$KMOD_ARCHIVE" --files-from=-
+              # find ./bin/targets/ -type f -name 'kmod-*.ipk' -print0 | tar --null -czf "./upload/$KMOD_ARCHIVE" --files-from=-
+              KMOD_FILES=$(find ./bin -type f -name 'kmod-*.ipk')
+              if [ -n "$KMOD_FILES" ]; then
+                tar -czf "./upload/$KMOD_ARCHIVE" $KMOD_FILES
+                rm -f $KMOD_FILES
+              fi
 
               find ./bin/targets/ -iregex ".*\(buildinfo\|json\|sha256sums\)$" -exec rm -rf {} +
             else
