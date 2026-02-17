@@ -27,6 +27,22 @@ elif [ -f "$WIFI_UC" ]; then
 	sed -i "s/encryption='.*'/encryption='psk2+ccmp'/g" $WIFI_UC
 fi
 
+if [[ "${WRT_CONFIG}" == "IPQ807X-AP8220" ]]; then
+	mkdir -p ./files/etc/uci-defaults
+	cat > ./files/etc/uci-defaults/99-ap8220-wifi << "EOF"
+#!/bin/sh
+
+uci set wireless.default_radio0.ssid='root'
+uci set wireless.default_radio0.key='12345678'
+uci set wireless.default_radio1.ssid='fff'
+uci set wireless.default_radio1.key='12345678'
+uci commit wireless
+
+exit 0
+EOF
+	chmod +x ./files/etc/uci-defaults/99-ap8220-wifi
+fi
+
 CFG_FILE="./package/base-files/files/bin/config_generate"
 #修改默认IP地址
 sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE

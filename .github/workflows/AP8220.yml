@@ -1,0 +1,34 @@
+name: AP8220
+
+on:
+  workflow_dispatch:
+    inputs:
+      PACKAGE:
+        description: '手动调整插件包，多个请用\n符号隔开。'
+        required: false
+        type: string
+      TEST:
+        description: '仅输出配置文件，不编译固件。'
+        default: 'false'
+        required: false
+        type: boolean
+
+permissions: write-all
+
+jobs:
+  config:
+    name: AP8220
+    uses: ./.github/workflows/WRT-CORE.yml
+    with:
+      WRT_CONFIG: IPQ807X-AP8220
+      WRT_THEME: kucat
+      WRT_NAME: OWRT
+      WRT_SSID: fff
+      WRT_WORD: 12345678
+      WRT_IP: 192.168.58.1
+      WRT_PW: 无
+      WRT_REPO: https://github.com/VIKINGYFY/immortalwrt.git
+      WRT_BRANCH: main
+      WRT_SOURCE: VIKINGYFY/immortalwrt
+      WRT_PACKAGE: ${{inputs.PACKAGE}}
+      WRT_TEST: ${{inputs.TEST}}
