@@ -1,27 +1,24 @@
 #!/bin/bash
 
 if [ -d "./wrt/.git" ]; then
-	cd ./wrt/
-
-	CURRENT_URL=$(git remote get-url origin 2>/dev/null || echo "")
+	CURRENT_URL=$(git -C ./wrt remote get-url origin 2>/dev/null || echo "")
 	if [ "$CURRENT_URL" != "$WRT_REPO" ] && [ -n "$WRT_REPO" ]; then
-		git remote set-url origin "$WRT_REPO"
+		git -C ./wrt remote set-url origin "$WRT_REPO"
 	fi
 
-	git fetch --all --prune
-	if git show-ref --verify --quiet "refs/remotes/origin/$WRT_BRANCH"; then
-		git checkout -B "$WRT_BRANCH" "origin/$WRT_BRANCH"
+	git -C ./wrt fetch --all --prune
+	if git -C ./wrt show-ref --verify --quiet "refs/remotes/origin/$WRT_BRANCH"; then
+		git -C ./wrt checkout -B "$WRT_BRANCH" "origin/$WRT_BRANCH"
 	else
-		git checkout -B "$WRT_BRANCH"
+		git -C ./wrt checkout -B "$WRT_BRANCH"
 	fi
-	git reset --hard "origin/$WRT_BRANCH" 2>/dev/null || true
+	git -C ./wrt reset --hard "origin/$WRT_BRANCH" 2>/dev/null || true
 else
 	if [ -d "./wrt" ]; then
 		rm -rf ./wrt/* ./wrt/.[!.]* ./wrt/..?* || true
 	fi
 
 	git clone --depth=1 --single-branch --branch "$WRT_BRANCH" "$WRT_REPO" ./wrt/
-	cd ./wrt/
 fi
 
 cd ./wrt/ 2>/dev/null || exit 1
