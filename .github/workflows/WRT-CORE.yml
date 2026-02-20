@@ -178,6 +178,11 @@ jobs:
 
           make defconfig -j$(nproc) && make clean -j$(nproc)
 
+      - name: Download Smart Kernel
+        run: |
+          cd ./wrt/
+          $GITHUB_WORKSPACE/Scripts/Smart.sh
+
       - name: Download Packages
         if: env.WRT_TEST != 'true'
         run: |
