@@ -96,13 +96,7 @@ jobs:
 
       - name: Clone Code
         run: |
-          if [ -d "./wrt" ]; then
-            rm -rf ./wrt/* ./wrt/.[!.]* ./wrt/..?* || true
-          fi
-
-          git clone --depth=1 --single-branch --branch $WRT_BRANCH $WRT_REPO ./wrt/
-
-          cd ./wrt/ && echo "WRT_HASH=$(git log -1 --pretty=format:'%h')" >> $GITHUB_ENV
+          $GITHUB_WORKSPACE/Scripts/Source.sh
 
           # GitHub Action 移除国内下载源
           PROJECT_MIRRORS_FILE="./scripts/projectsmirrors.json"
