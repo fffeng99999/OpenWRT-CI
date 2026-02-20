@@ -107,3 +107,22 @@ if [ -d *"luci-app-netspeedtest"* ]; then
 
 	cd $PKG_PATH && echo "netspeedtest has been fixed!"
 fi
+
+# 修复 onionshare-cli 与 qmodem 的依赖问题
+ONION_FILE=$(find ../feeds/packages/ -maxdepth 3 -type f -wholename "*/onionshare-cli/Makefile")
+if [ -f "$ONION_FILE" ]; then
+	echo " "
+
+	sed -i 's/python3-pysocks//g; s/python3-unidecode//g' "$ONION_FILE"
+
+	cd $PKG_PATH && echo "onionshare-cli has been fixed!"
+fi
+
+QMODEM_FILE="./QModem/application/qmodem/Makefile"
+if [ -f "$QMODEM_FILE" ]; then
+	echo " "
+
+	sed -i 's/kmod-mhi-wwan//g; s/quectel-CM-5G//g' "$QMODEM_FILE"
+
+	cd $PKG_PATH && echo "qmodem has been fixed!"
+fi
