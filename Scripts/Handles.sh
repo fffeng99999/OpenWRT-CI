@@ -128,12 +128,12 @@ if [ -f "$QMODEM_FILE" ]; then
 fi
 
 # 禁用 NSS ECM 的 PPPoE 硬件卸载补丁，避免兼容性问题
-NSS_PPP_PATCH="../target/linux/qualcommax/patches-6.12/0600-2-qca-nss-ecm-support-PPPOE-offload.patch"
-if [ -f "$NSS_PPP_PATCH" ]; then
-	echo " "
+# NSS_PPP_PATCH="../target/linux/qualcommax/patches-6.12/0600-2-qca-nss-ecm-support-PPPOE-offload.patch"
+# if [ -f "$NSS_PPP_PATCH" ]; then
+# 	echo " "
 
-	# 将补丁文件重命名为 .disabled 以禁用
-	mv -f "$NSS_PPP_PATCH" "$NSS_PPP_PATCH.disabled"
+# 	# 将补丁文件重命名为 .disabled 以禁用
+# 	mv -f "$NSS_PPP_PATCH" "$NSS_PPP_PATCH.disabled"
 
-	cd $PKG_PATH && echo "nss-ecm pppoe offload patch has been disabled!"
-fi
+# 	cd $PKG_PATH && echo "nss-ecm pppoe offload patch has been disabled!"
+# fi
