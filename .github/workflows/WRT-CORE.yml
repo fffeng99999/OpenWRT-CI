@@ -96,7 +96,7 @@ jobs:
 
       - name: Clone Code
         run: |
-          $GITHUB_WORKSPACE/Scripts/Source.sh
+          bash "$GITHUB_WORKSPACE/Scripts/Source.sh"
 
           # GitHub Action 移除国内下载源
           PROJECT_MIRRORS_FILE="./scripts/projectsmirrors.json"
