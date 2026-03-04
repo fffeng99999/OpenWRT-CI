@@ -12,6 +12,11 @@ on:
         default: 'false'
         required: false
         type: boolean
+      RUNNER:
+        description: '运行环境。'
+        default: 'ubuntu-latest'
+        required: false
+        type: string
 
 permissions: write-all
 
@@ -32,3 +37,4 @@ jobs:
       WRT_SOURCE: VIKINGYFY/immortalwrt
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       WRT_TEST: ${{inputs.TEST}}
+      WRT_RUNNER: ${{inputs.RUNNER}}
