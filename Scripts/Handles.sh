@@ -116,3 +116,14 @@ if [ -f "$QMODEM_FILE" ]; then
 
 	cd $PKG_PATH && echo "qmodem has been fixed!"
 fi
+
+#修复 Nikki 启动脚本阻塞问题
+NIKKI_FILE=$(find ../feeds/luci/ -type f -wholename "*/luci-app-nikki/*/etc/init.d/nikki")
+if [ -f "$NIKKI_FILE" ]; then
+	echo " "
+
+	sed -i '/config_load nikki/i \	(' "$NIKKI_FILE"
+	sed -i '/log "App" "Exit."/{n;s/fi/fi\n\t) \&/}' "$NIKKI_FILE"
+
+	cd $PKG_PATH && echo "nikki has been fixed!"
+fi
