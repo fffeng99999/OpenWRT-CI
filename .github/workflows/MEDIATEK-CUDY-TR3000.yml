@@ -31,7 +31,7 @@ jobs:
       WRT_SSID: fff
       WRT_WORD: 12345678
       WRT_IP: 192.168.58.1
-      WRT_PW: 无
+      WRT_PW: none
       WRT_REPO: https://github.com/VIKINGYFY/immortalwrt.git
       WRT_BRANCH: owrt
       WRT_SOURCE: VIKINGYFY/immortalwrt
