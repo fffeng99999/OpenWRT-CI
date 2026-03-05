@@ -224,7 +224,8 @@ jobs:
             WRT_LIST=$(find ./bin/targets/ -type f -name '*.manifest' -exec grep -oP '^luci-(app|theme)[^ ]*' {} \; | tr '\n' ' ')
             echo "WRT_LIST=$WRT_LIST" >> $GITHUB_ENV
 
-            if [[ "$WRT_CONFIG" == "IPQ807X-AP8220" ]]; then
+            KMOD_DEVICE_LIST="$GITHUB_WORKSPACE/Config/KMOD-ARCHIVE-DEVICES.txt"
+            if [ -f "$KMOD_DEVICE_LIST" ] && grep -Fxq "$WRT_CONFIG" "$KMOD_DEVICE_LIST"; then
               KMOD_ARCHIVE="kmods-$WRT_TARGET-$WRT_INFO-$WRT_BRANCH-$WRT_DATE.tar.gz"
               KMOD_FILES=$(find ./bin -type f -name 'kmod-*.ipk')
               if [ -n "$KMOD_FILES" ]; then

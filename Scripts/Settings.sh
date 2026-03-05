@@ -27,7 +27,8 @@ elif [ -f "$WIFI_UC" ]; then
 	sed -i "s/encryption='.*'/encryption='psk2+ccmp'/g" $WIFI_UC
 fi
 
-if [[ "${WRT_CONFIG}" == "IPQ807X-AP8220" ]]; then
+KMOD_DEVICE_LIST="$GITHUB_WORKSPACE/Config/KMOD-ARCHIVE-DEVICES.txt"
+if [ -f "$KMOD_DEVICE_LIST" ] && grep -Fxq "$WRT_CONFIG" "$KMOD_DEVICE_LIST"; then
 	mkdir -p ./files/etc/uci-defaults
 	cat > ./files/etc/uci-defaults/99-ap8220-wifi << "EOF"
 #!/bin/sh
